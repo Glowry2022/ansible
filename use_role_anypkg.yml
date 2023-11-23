@@ -1,0 +1,7 @@
+---
+- name: Use any_pkg 
+  hosts: managedhost1
+  vars:
+    - pckg_name: httpd
+  roles:
+    - any_pgk

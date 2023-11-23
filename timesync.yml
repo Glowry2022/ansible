@@ -1,0 +1,10 @@
+---
+- name: Use timesync
+  hosts: managedhost1
+  vars:
+    timesync_ntp_servers:
+      - hostname: 0.uk.pool.ntp.org
+        iburst: yes
+  roles:
+    - rhel-system-roles.timesync
+

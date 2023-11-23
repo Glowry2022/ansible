@@ -1,0 +1,43 @@
+---
+- name: Edit files
+  hosts: managedhost1
+  become: true
+  tasks:
+    - name: copy file
+      ansible.builtin.copy:
+        src: report.txt
+        dest: /root/report.txt
+    - name: Edit host
+      ansible.builtin.lineinfile:
+        regex: ^HOST
+        line: HOST={{ansible_facts['hostname']}}
+        state: present
+        path: /root/report.txt
+    - name: Edit Memory
+      ansible.builtin.lineinfile:
+        regex: ^MEMORY
+        line: MEMORY={{ansible_facts['memtotal_mb']}}
+        state: present
+        path: /root/report.txt
+    - name: Edit Bios
+      ansible.builtin.lineinfile:
+        regex: ^BIOS
+        line: BIOS={{ansible_facts['bios_version']}}
+        state: present
+        path: /root/report.txt
+    - name: Edit SDA
+      ansible.builtin.lineinfile:
+        line: SDA_DISK_SIZE={%if ansible_facts['devices']['sda'] is defined%}{{ansible_facts['devices']['sda']['size']}}{%else%}NONE{%endif%}
+        regex: ^SDA_DISK_SIZE
+        state: present
+        path: /root/report.txt
+    - name: Edit SDB
+      ansible.builtin.lineinfile:
+        line: SDB_DISK_SIZE={%if ansible_facts['devices']['sdb'] is defined%}{{ansible_facts['devices']['sdb']['size']}}{%else%}NONE{%endif%}
+        regex: ^VDB_DISK_SIZE
+        state: present
+        path: /root/report.txt
+
+
+
+

@@ -1,0 +1,51 @@
+---
+- name: Enable internet services
+  hosts: managedhost1
+  become: true
+  tasks:
+    - name: Install necessary packages
+      ansible.builtin.dnf:
+        name:
+          - firewalld
+          - httpd
+          - mariadb-server
+          - php
+          - php-mysqlnd
+        state: latest
+
+    - name: Start Firewall service
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Allow httpd service
+      ansible.posix.firewalld:
+        service: httpd
+        immediate: true
+        permanent: true
+        state: enabled
+
+    - name: Enable httpd and mariadb services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - httpd
+        - mariadb
+
+    - name: Ensure index file exists
+      ansible.builtin.copy:
+        src: ~/playbook-review/index.php
+        dest: /var/www/html/
+        mode: 0644
+
+- name: Test web access
+  hosts: localhost
+  become: false
+  tasks:
+    - name: Test web service
+      ansible.builtin.uri:
+        url: http://serverb.lab.example.com
+        status_code: 200
