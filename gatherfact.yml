@@ -1,5 +1,6 @@
 ---
 - name: Display ansible_facts
+  hosts: all
   tasks:
     - name: Display facts
       debug:
