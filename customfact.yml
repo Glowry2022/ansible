@@ -1,0 +1,19 @@
+---
+- name: Creating custom fact
+  hosts: managedhost1
+  gather_facts: no
+  tasks:
+    - name: Make sure dir exists
+      ansible.builtin.file:
+        path: /etc/ansible/facts.d
+        state: directory
+
+    - name: Create custom.fact
+      ansible.builtin.copy:
+        content: |
+          [general]
+          package = httpd
+          service = httpd
+          state = started
+          enabled = true
+        dest: /etc/ansible/facts.d/custom.fact

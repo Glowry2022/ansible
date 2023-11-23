@@ -1,0 +1,42 @@
+---
+- name: Install and Start Apache Server
+  hosts: managedhost1
+  tasks:
+    - name: Ensure httpd package is present
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Correct index.html is present
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+
+    - name: Ensure httpd is started
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Start Firewall service
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Allow httpd service
+      ansible.posix.firewalld:
+        service: http
+        immediate: true
+        permanent: true
+        state: enabled
+
+- name: Test web access
+  hosts: localhost
+  become: false
+  tasks:
+    - name: Test web service
+      ansible.builtin.uri:
+        url: http://192.168.0.233
+        status_code: 200
+

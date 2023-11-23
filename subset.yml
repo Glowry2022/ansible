@@ -1,0 +1,13 @@
+---
+- name: Collect subset of ansible_facts
+  hosts: localhost, managedhost1
+  gather_facts: no
+  tasks:
+    - name: Collect only hardware facts
+      ansible.builtin.setup:
+        gather_subset:
+          - hardware
+
+    - name: Print hardware facts
+      ansible.builtin.debug:
+        var: ansible_facts

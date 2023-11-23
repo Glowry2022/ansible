@@ -1,0 +1,12 @@
+---
+- name: Use Jinja2 template for /etc/hosts creation
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: update /etc/hosts
+      template:
+        src: templates/hosts.j2
+        dest: /etc/hosts
+        owner: root
+        group: root
+      
