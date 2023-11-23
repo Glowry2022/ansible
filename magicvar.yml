@@ -1,6 +1,5 @@
 ---
 - name: Test magic var hosts_vars
-  hosts: localhost
   tasks:
     - name: Print list of network interfaces for managedhost1
       ansible.builtin.debug:
