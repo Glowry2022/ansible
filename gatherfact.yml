@@ -1,6 +1,5 @@
 ---
 - name: Display ansible_facts
-  hosts: managedhost1
   tasks:
     - name: Display facts
       debug:
