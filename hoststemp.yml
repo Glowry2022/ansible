@@ -5,7 +5,7 @@
   tasks:
     - name: update /home/ansible/hosts.j2
       template:
-        src: templates/hosts.j2
+        src: https://github.com/Glowry2022/ansible/blob/main/hosts.j2
         dest: /etc/hosts
         owner: root
         group: root
