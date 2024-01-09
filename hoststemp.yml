@@ -3,7 +3,7 @@
   hosts: all
   remote_user: root
   tasks:
-    - name: update /etc/hosts
+    - name: update /hosts.j2
       template:
         src: templates/hosts.j2
         dest: /etc/hosts
