@@ -1,6 +1,6 @@
 ---
 - name: Check httpd status
-  hosts: *
+  hosts: all
   tasks:
     - name: Check httpd status
       command: systemctl status httpd
