@@ -1,6 +1,6 @@
 ---
 - name: Enable internet services
-  hosts: managedhost1
+  hosts: "*"
   become: true
   tasks:
     - name: Install necessary packages
@@ -37,7 +37,7 @@
 
     - name: Ensure index file exists
       ansible.builtin.copy:
-        src: ~/playbook-review/index.php
+        src: ./index.php
         dest: /var/www/html/
         mode: 0644
 
