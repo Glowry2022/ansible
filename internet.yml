@@ -42,7 +42,7 @@
         mode: 0644
 
 - name: Test web access
-  hosts: localhost
+  hosts: 192.168.0.168
   become: false
   tasks:
     - name: Test web service
