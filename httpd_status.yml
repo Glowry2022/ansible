@@ -1,6 +1,6 @@
 ---
 - name: Check httpd status
-  hosts: managedhost1
+  hosts: *
   tasks:
     - name: Check httpd status
       command: systemctl status httpd
